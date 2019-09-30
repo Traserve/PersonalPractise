@@ -1,4 +1,4 @@
-package Password;
+package password;
 
 import com.google.common.primitives.Chars;
 import java.security.MessageDigest;
