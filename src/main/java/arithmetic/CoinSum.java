@@ -18,6 +18,7 @@ public class CoinSum {
         int[] coins = new int[]{1, 2, 5};
         int n = 11;
         System.err.println(coinSum(k, n, coins));
+        System.err.println(coinChange(coins, n));
         System.err.println(coinChangeDp(Lists.newArrayList(1, 2, 5), 11));
     }
 
@@ -39,7 +40,7 @@ public class CoinSum {
         return m;
     }
 
-    public int coinChange(int[] coins, int amount) {
+    public static int coinChange(int[] coins, int amount) {
         if (amount == 0) {
             return 0;
         }
