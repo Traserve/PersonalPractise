@@ -42,7 +42,7 @@ public class PilesPick {
     /**
      * 斜着遍历数组
      */
-    private static Pair<Integer, Integer> pick(Pair[][] dp) {
+    private static int pick(Pair[][] dp) {
         int limit = piles.length - 1;
         int base = 1;
         int first, second = 0;
@@ -70,7 +70,7 @@ public class PilesPick {
             base++;
             limit--;
         }
-        return Pair.of(1, 2);
+        return Math.abs((int)dp[0][piles.length-1].getLeft() - (int)dp[0][piles.length-1].getRight());
     }
 
 }
