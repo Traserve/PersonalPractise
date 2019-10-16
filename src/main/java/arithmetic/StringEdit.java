@@ -29,6 +29,7 @@ public class StringEdit {
         int dc = 3;
         int rc = 10;
         System.err.println(findMinCost(str1, str1.length(), str2, str2.length(), ic, dc, rc));
+        System.err.print("\n");
         System.err.println(minCost02(str1, str2, ic, dc, rc));
     }
 
@@ -42,53 +43,65 @@ public class StringEdit {
         }
         for (int i = 1; i <= n; i++) {
             for (int j = 1; j <= m; j++) {
-                if (A.charAt(i-1) == B.charAt(j-1)) {
+                if (A.charAt(i - 1) == B.charAt(j - 1)) {
                     dp[i][j] = dp[i - 1][j - 1];
                 } else {
-                    dp[i][j] = Math.min(dp[i - 1][j] + dc, Math.min(dp[i][j - 1] + ic, dp[i - 1][j - 1] + rc));
+                    dp[i][j] = dp[i - 1][j - 1] + rc;
                 }
+                dp[i][j] = Math.min(dp[i][j], dp[i - 1][j] + dc);
+                dp[i][j] = Math.min(dp[i][j], dp[i][j - 1] + ic);
             }
+        }
+        for (int i = 0; i < dp.length; i++) {
+            for (int j = 0; j < dp[0].length; j++) {
+                System.err.print(dp[i][j] + " ");
+            }
+            System.err.print("\n");
         }
         return dp[n][m];
     }
 
     /**
      * 压缩空间的动态规划(滚动法)(时间复杂度为O(M*N)，额外的空间复杂度为O(min(M,N))
+     * 思路：计算dp[i][j]需要三个值：dp[i-1][j-1],dp[i-1][j],dp[i][j-1]。计算第一列的时候pre=dp[0]，temp=dp[i-1][j]，dp[i-1]=dp[i][j-1]
      */
     public static int minCost02(String str1, String str2, int ic, int dc, int rc) {
         if (str1 == null || str2 == null) {
             return 0;
         }
-        char[] ch1 = str1.toCharArray();
-        char[] ch2 = str2.toCharArray();
-        char[] longs = ch1.length >= ch2.length ? ch1 : ch2;
-        char[] shorts = ch1.length < ch2.length ? ch1 : ch2;
+        String longs = str1.length() >= str2.length() ? str1 : str2;
+        String shorts = str1.length() < str2.length() ? str1 : str2;
         //str2较长就交换ic和dc的值
-        if (ch1.length < ch2.length) {
+        if (str1.length() < str2.length()) {
             int temp = ic;
             ic = dc;
             dc = temp;
         }
-        int[] dp = new int[shorts.length + 1];
-        for (int i = 1; i <= shorts.length; i++) {
+        int[] dp = new int[shorts.length() + 1];
+        for (int i = 1; i <= shorts.length(); i++) {
             dp[i] = ic * i;
         }
-        for (int i = 1; i <= longs.length; i++) {
+        for (int i = 1; i <= longs.length(); i++) {
             //pre表示左上角的值
             int pre = dp[0];
             dp[0] = dc * i;
-            for (int j = 1; j <= shorts.length; j++) {
+            for (int j = 1; j <= shorts.length(); j++) {
                 int temp = dp[j];
-                if (longs[i - 1] == shorts[j - 1]) {
+                if (longs.charAt(i-1) == shorts.charAt(j - 1)) {
                     dp[j] = pre;
                 } else {
                     dp[j] = pre + rc;
                 }
                 dp[j] = Math.min(dp[j], dp[j - 1] + ic);
                 dp[j] = Math.min(dp[j], temp + dc);
+                //将pre置为下一列的dp[i-1][j-1]
                 pre = temp;
            }
+            for (int k = 0; k < dp.length; k++) {
+                System.err.print(dp[k] + " ");
+            }
+            System.err.print("\n");
         }
-        return dp[shorts.length];
+        return dp[shorts.length()];
     }
 }
