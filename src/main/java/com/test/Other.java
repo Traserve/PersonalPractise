@@ -49,11 +49,10 @@ public class Other {
 //        System.err.println(Boolean.valueOf(String.valueOf(map.get("22"))));
 //        System.err.println(idCardNoMock("430421199011089157"));
 
-//        System.err.println(new BigDecimal(80).divide(new BigDecimal(100), 1, BigDecimal.ROUND_HALF_UP)
-//                .multiply(new BigDecimal(100)).toString()
-//                .concat("%"));
-//        System.err.println(amountToCommaString(833L));
-        System.err.println("1986-03-01--12".substring(0, 10));
+        BigDecimal total = new BigDecimal("10000");
+        BigDecimal raise = new BigDecimal("3300");
+        System.err.println(
+                raise.divide(total, 2, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal(100)).toString().concat("%"));
     }
 
     public static String amountToCommaString(Long amount) {
