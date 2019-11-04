@@ -52,6 +52,21 @@ public class AmapUtil {
         return result;
     }
 
+    /**
+     * 根据IP获取位置信息
+     */
+    public static HttpClientResult getDetailLocationByIp(String ip) {
+        HttpClientResult result = null;
+        try {
+            //{"status":"1","info":"OK","infocode":"10000","province":"广东省","city":"广州市","adcode":"440100","rectangle":"113.1017375,22.93212254;113.6770499,23.3809537"}
+            result = HttpClientUtils
+                    .doGet("https://restapi.amap.com/v3/ip?key=" + KEY + "&ip=" + ip);
+        } catch (Exception e) {
+            logger.error("请求高德地图IP定位接口出错", e);
+        }
+        return result;
+    }
+
 
     @Test
     public void getAreaInfoTest() {
@@ -71,6 +86,12 @@ public class AmapUtil {
     @Test
     public void getDetailLocationInfoTest() {
         HttpClientResult result = getDetailLocationInfo("107.6493856959542,35.71521598356201");
+        System.err.println(result.getContent());
+    }
+
+    @Test
+    public void getDetailLocationByIpTest() {
+        HttpClientResult result = getDetailLocationByIp("219.136.134.157");
         System.err.println(result.getContent());
     }
 }

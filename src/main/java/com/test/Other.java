@@ -1,7 +1,11 @@
 package com.test;
 
+import com.google.common.base.Joiner;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -49,10 +53,19 @@ public class Other {
 //        System.err.println(Boolean.valueOf(String.valueOf(map.get("22"))));
 //        System.err.println(idCardNoMock("430421199011089157"));
 
-        BigDecimal total = new BigDecimal("10000");
-        BigDecimal raise = new BigDecimal("3300");
-        System.err.println(
-                raise.divide(total, 2, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal(100)).toString().concat("%"));
+        List<String> list = new ArrayList<String>();
+        list.add("你");
+        list.add("们");
+        list.add(null);
+        list.add("好");
+        list.add("吗");
+        Iterator<String> it = list.iterator();
+        StringBuilder builder = new StringBuilder("主题：");
+        System.out.println(Joiner.on(',').skipNulls().appendTo(builder, list));
+    }
+
+    private static boolean isNum(String val) {
+        return StringUtils.isNotEmpty(val) && val.matches("^[0-9]*{1}");
     }
 
     public static String amountToCommaString(Long amount) {
