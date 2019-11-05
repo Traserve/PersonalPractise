@@ -71,7 +71,8 @@ public class AmapUtil {
     @Test
     public void getAreaInfoTest() {
         String areaInfo;
-        HttpClientResult result = getAreaInfo("中华人民共和国", 2);
+//        HttpClientResult result = getAreaInfo("中华人民共和国", 3);
+        HttpClientResult result = getAreaInfo("511325", 1);
         if (Objects.nonNull(result) && StringUtils.isNotEmpty(result.getContent())) {
             JSONObject outJson = JSONObject.parseObject(result.getContent());
             String status = outJson.getString("status");
