@@ -1,8 +1,5 @@
 package list;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-
 /**
  * Description:
  *
@@ -10,10 +7,15 @@ import lombok.NoArgsConstructor;
  * @date 2019/11/8 9:51
  */
 
-@NoArgsConstructor
-@AllArgsConstructor
 public class ListNode {
 
     public int data;
     public ListNode next;
+
+    ListNode() {
+    }
+
+    ListNode(int data) {
+        this.data = data;
+    }
 }

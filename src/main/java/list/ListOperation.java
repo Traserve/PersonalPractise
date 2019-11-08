@@ -1,7 +1,6 @@
 package list;
 
 import java.util.Scanner;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * Description:
@@ -10,35 +9,139 @@ import lombok.extern.slf4j.Slf4j;
  * @date 2019/11/8 9:55
  */
 
-@Slf4j
 public class ListOperation {
+
+    private static ListNode linkAfter = null;
 
     public static void main(String[] args) {
         ListNode head = creatListTail();
         traverseList(head);
-//        traverseList(insertList(head, 9, 1));
 //        traverseList(insertList(head, 9, 3));
-        traverseList(reverseList(head));
+//        traverseList(reverseListRecursion(head));
+//        traverseList(reverseListRecursion(head, 3));
+//        traverseList(reverseListRecursion(head, 3, 5));
+//        traverseList(reserveListIteration(head));
+//        traverseList(reserveListIteration(head, 3));
+        traverseList(reserveListIteration(head, 1, 5));
     }
 
     /**
      * 反转链表，递归
      */
-    public static ListNode reverseList(ListNode head) {
+    public static ListNode reverseListRecursion(ListNode head) {
         if (head.next == null) {
             return head;
         }
-        ListNode last = reverseList(head.next);
+        ListNode last = reverseListRecursion(head.next);
         head.next.next = head;
         head.next = null;
         return last;
     }
 
     /**
+     * 反转链表前n位，递归
+     */
+    public static ListNode reverseListRecursion(ListNode head, int n) {
+        if (head.next == null || n == 1) {
+            linkAfter = head.next;
+            return head;
+        }
+        ListNode last = reverseListRecursion(head.next, n - 1);
+        head.next.next = head;
+        head.next = linkAfter;
+        return last;
+    }
+
+    /**
+     * 反转链表第m-n位，递归
+     */
+    public static ListNode reverseListRecursion(ListNode head, int m, int n) {
+        // base case
+        if (m == 1) {
+            //此时n = (n - m + 1)
+            return reverseListRecursion(head, n);
+        }
+        // 前进到反转的起点触发 base case
+        head.next = reverseListRecursion(head.next, m - 1, n - 1);
+        return head;
+    }
+
+    /**
+     * 迭代
+     */
+    public static ListNode reserveListIteration(ListNode head) {
+        ListNode curNode = head;
+        ListNode preNode = null;
+        while (curNode != null) {
+            //保留下一个结点
+            ListNode nextNode = curNode.next;
+            //指针反转
+            curNode.next = preNode;
+            //前结点后移
+            preNode = curNode;
+            //当前结点后移
+            curNode = nextNode;
+        }
+        return preNode;
+    }
+
+    /**
+     * 反转链表前n位，迭代
+     */
+    public static ListNode reserveListIteration(ListNode head, int n) {
+        ListNode curNode = head;
+        ListNode preNode = null;
+        while (curNode != null && n > 0) {
+            //保留下一个结点
+            ListNode nextNode = curNode.next;
+            //指针反转
+            curNode.next = preNode;
+            //前结点后移
+            preNode = curNode;
+            //当前结点后移
+            curNode = nextNode;
+            n--;
+        }
+        head.next = curNode;
+        return preNode;
+    }
+
+    /**
+     * 每k个元素一组进行翻转
+     */
+    public static ListNode reserveListIteration(ListNode head, int k) {
+        ListNode curNode = head;
+        ListNode preNode = null;
+        while (curNode != null && m > 1) {
+            preNode = curNode;
+            curNode = curNode.next;
+            m--;
+            n--;
+        }
+        ListNode link = preNode;
+        ListNode newHeader = curNode;
+        curNode = newHeader;
+        while (curNode != null && n > 0) {
+            //保留下一个结点
+            ListNode nextNode = curNode.next;
+            //指针反转
+            curNode.next = preNode;
+            //前结点后移
+            preNode = curNode;
+            //当前结点后移
+            curNode = nextNode;
+            n--;
+        }
+        link.next = preNode;
+        newHeader.next = curNode;
+        return head;
+    }
+
+    /**
      * 插入元素
      */
     public static ListNode insertList(ListNode head, int data, int pos) {
-        ListNode newNode = new ListNode(data, null);
+        ListNode newNode = new ListNode(data);
         if (head == null) {
             return newNode;
         }
