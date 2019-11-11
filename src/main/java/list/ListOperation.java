@@ -23,7 +23,14 @@ public class ListOperation {
 //        traverseList(reserveListIteration(head));
 //        traverseList(reserveListIteration(head, 3));
 //        traverseList(reserveListBetween(head.next, head.next.next.next));
-        traverseList(reserveListByGroup(head, 3));
+//        traverseList(reserveListByGroup(head, 3));
+        ListNode a = head.next.next;
+        ListNode b = head;
+        while (b.next != null) {
+            b = b.next;
+        }
+        b.next = a;
+        System.err.println(judgeCircle(head));
     }
 
     /**
@@ -129,9 +136,7 @@ public class ListOperation {
     }
 
     /**
-     * 每k个元素一组进行翻转
-     * 1 2 3 4 5 6
-     * 3 2 1 6 5 4
+     * 每k个元素一组进行翻转 1 2 3 4 5 6 3 2 1 6 5 4
      */
     public static ListNode reserveListByGroup(ListNode head, int k) {
         if (head == null) {
@@ -148,6 +153,60 @@ public class ListOperation {
         ListNode newHead = reserveListBetween(startNode, curNode);
         startNode.next = reserveListByGroup(curNode, k);
         return newHead;
+    }
+
+    /**
+     * 判断链表是否有环
+     */
+    public static int judgeCircle(ListNode head) {
+        ListNode fast = head;
+        ListNode slow = head;
+        int i = -1, j = 0;
+        while (j < 2 && fast.next != null && fast.next.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+            if (fast == slow) {
+                if (i < 0) {
+                    i = 0;
+                }
+                j++;
+            }
+            if (i >= 0) {
+                i++;
+            }
+        }
+        return i - 1;
+    }
+
+    /**
+     * 判断两个链表是否相交： 两个链表相交，则它们的尾结点一定相同，比较两个链表的尾结点是否相同即可
+     */
+    public boolean isCross(ListNode head1, ListNode head2) {
+        ListNode temp1 = head1;
+        ListNode temp2 = head2;
+        while (temp1.next != null) {
+            temp1 = temp1.next;
+        }
+        while (temp2.next != null) {
+            temp2 = temp2.next;
+        }
+        if (temp1 == temp2) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 如果链表相交，求链表相交的起始点： 1、首先判断链表是否相交，如果两个链表不相交，则求相交起点没有意义 2、求出两个链表长度之差：len=length1-length2 3、让较长的链表先走len步
+     * 4、然后两个链表同步向前移动，没移动一次就比较它们的结点是否相等，第一个相等的结点即为它们的第一个相交点
+     */
+    public ListNode findFirstCrossPoint(ListNode head1, ListNode head2) {
+        if (!isCross(head1, head2)) {
+            return null;
+        }
+        ListNode temp1 = head1;
+        ListNode temp2 = head2;
+        return temp1;
     }
 
     /**
