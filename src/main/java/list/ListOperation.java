@@ -22,7 +22,8 @@ public class ListOperation {
 //        traverseList(reverseListRecursion(head, 3, 5));
 //        traverseList(reserveListIteration(head));
 //        traverseList(reserveListIteration(head, 3));
-        traverseList(reserveListIteration(head, 1, 5));
+//        traverseList(reserveListBetween(head.next, head.next.next.next));
+        traverseList(reserveListByGroup(head, 3));
     }
 
     /**
@@ -107,34 +108,46 @@ public class ListOperation {
     }
 
     /**
-     * 每k个元素一组进行翻转
+     * 反转链表left和right之间的数据，迭代
      */
-    public static ListNode reserveListIteration(ListNode head, int k) {
-        ListNode curNode = head;
+    public static ListNode reserveListBetween(ListNode left, ListNode right) {
+        ListNode curNode = left;
         ListNode preNode = null;
-        while (curNode != null && m > 1) {
-            preNode = curNode;
-            curNode = curNode.next;
-            m--;
-            n--;
-        }
-        ListNode link = preNode;
-        ListNode newHeader = curNode;
-        curNode = newHeader;
-        while (curNode != null && n > 0) {
+        ListNode nextNode = null;
+        while (curNode != null && curNode != right) {
             //保留下一个结点
-            ListNode nextNode = curNode.next;
+            nextNode = curNode.next;
             //指针反转
             curNode.next = preNode;
             //前结点后移
             preNode = curNode;
             //当前结点后移
             curNode = nextNode;
-            n--;
         }
-        link.next = preNode;
-        newHeader.next = curNode;
-        return head;
+        left.next = curNode;
+        return preNode;
+    }
+
+    /**
+     * 每k个元素一组进行翻转
+     * 1 2 3 4 5 6
+     * 3 2 1 6 5 4
+     */
+    public static ListNode reserveListByGroup(ListNode head, int k) {
+        if (head == null) {
+            return null;
+        }
+        ListNode curNode = head;
+        ListNode startNode = head;
+        for (int i = 0; i < k; i++) {
+            if (curNode == null) {
+                break;
+            }
+            curNode = curNode.next;
+        }
+        ListNode newHead = reserveListBetween(startNode, curNode);
+        startNode.next = reserveListByGroup(curNode, k);
+        return newHead;
     }
 
     /**
