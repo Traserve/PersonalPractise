@@ -8,12 +8,15 @@ package com.test;
  */
 
 /**
- * 1、基本类型作为参数传递时，是传递值的拷贝，无论你怎么改变这个拷贝，原值是不会改变的 2、对象作为参数传递时，是把对象在内存中的地址拷贝了一份传给了参数。 基本类型作为参数传递时，是传递值的拷贝，无论你怎么改变这个拷贝，原值是不会改变的
+ * 1、基本类型作为参数传递时，是传递值的拷贝，无论你怎么改变这个拷贝，原值是不会改变的
+ * 2、对象作为参数传递时，是把对象在内存中的地址拷贝了一份传给了参数。
+ * 基本类型作为参数传递时，是传递值的拷贝，无论你怎么改变这个拷贝，原值是不会改变的
  * 在Java中对象作为参数传递时，是把对象在内存中的地址拷贝了一份传给了参数
  *
  *
- * String类是个特殊的类，对它的一些操作符是重载的，如： String str = “Hello”; 等价于String str = new String(“Hello”); String str = “Hello”; str =
- * str + “ world!”;等价于str = new String((new StringBuffer(str)).append(“ world!”));
+ * String类是个特殊的类，对它的一些操作符是重载的，如：
+ * String str = “Hello”; 等价于String str = new String(“Hello”);
+ * String str = “Hello”; str = str + “ world!”;等价于str = new String((new StringBuffer(str)).append(“ world!”));
  */
 public class Transfer {
 
