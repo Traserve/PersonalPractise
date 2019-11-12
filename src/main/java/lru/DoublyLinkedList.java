@@ -27,7 +27,8 @@ public class DoublyLinkedList {
     }
 
     /**
-     * 删除链表中的 x 节点（x 一定存在） 由于是双链表且给的是目标 Node 节点，时间 O(1)
+     * 删除链表中的 x 节点（x 一定存在）
+     * 由于是双链表且给的是目标 Node 节点，时间 O(1)
      */
     public void remove(LRUNode node) {
         if (node.prev == null) {
@@ -69,11 +70,24 @@ public class DoublyLinkedList {
         return i;
     }
 
-    public void print() {
-        LRUNode currNode = head;
-        while (currNode != null) {
-            System.out.println(currNode.key + ": " + currNode.value);
-            currNode = currNode.next;
+    /**
+     * 被访问的节点移动到头部
+     */
+    public void moveToHead(LRUNode node) {
+        if (node == head) {
+            return;
         }
+        if (node.next == null) {
+            node.prev.next = null;
+            node.prev = null;
+            node.next = head;
+            head = node;
+            return;
+        }
+        node.prev.next = node.next;
+        node.next.prev = node.prev;
+        node.prev = null;
+        node.next = head;
+        head = node;
     }
 }

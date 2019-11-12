@@ -47,7 +47,19 @@ public class LRUCache {
         }
         int value = map.get(key).value;
         // 利用 put 方法把该数据提前
-        put(key, value);
+//        put(key, value);
+        cache.moveToHead(map.get(key));
         return value;
+    }
+
+    @Override
+    public String toString() {
+        LRUNode curr = cache.head;
+        StringBuilder sb = new StringBuilder();
+        while (curr != null) {
+            sb.append(curr.value).append(" ");
+            curr = curr.next;
+        }
+        return sb.toString();
     }
 }
