@@ -1,4 +1,4 @@
-package tree;
+package binaryTree;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -108,7 +108,9 @@ public class TreeOperation {
     }
 
     /**
-     * 获取删除节点的后继节点 ①、后继节点是删除节点的右子节点，只需要将后继节点表示的子树移到被删除节点的位置即可 ②、后继节点是删除节点的右子节点的左子节点
+     * 获取删除节点的后继节点
+     * ①、后继节点是删除节点的右子节点，只需要将后继节点表示的子树移到被删除节点的位置即可
+     * ②、后继节点是删除节点的右子节点的左子节点
      */
     public static TreeNode getSuccessor(TreeNode delNode) {
         TreeNode successorParent = delNode;

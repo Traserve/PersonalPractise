@@ -1,11 +1,7 @@
 package com.test;
 
-import com.google.common.base.Joiner;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -53,15 +49,11 @@ public class Other {
 //        System.err.println(Boolean.valueOf(String.valueOf(map.get("22"))));
 //        System.err.println(idCardNoMock("430421199011089157"));
 
-        List<String> list = new ArrayList<String>();
-        list.add("你");
-        list.add("们");
-        list.add(null);
-        list.add("好");
-        list.add("吗");
-        Iterator<String> it = list.iterator();
-        StringBuilder builder = new StringBuilder("主题：");
-        System.out.println(Joiner.on(',').skipNulls().appendTo(builder, list));
+        int a = 1 ^ 2 ^ 3 ^ 4 ^ 5 ^ 6 ^ 7 ^ 8 ^ 9 ^ 10;
+        System.err.println(a);
+        int b = 1 ^ 2 ^ 3 ^ 4 ^ 6 ^ 7 ^ 8 ^ 9 ^ 10;
+        System.err.println(b);
+        System.err.println(a ^ b);
     }
 
     private static boolean isNum(String val) {
