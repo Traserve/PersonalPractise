@@ -42,8 +42,9 @@ public class LRULinkedHashMap {
         cache.put(1, 1);
         cache.put(2, 2);
         cache.put(3, 3);
-        cache.get(1);
         cache.put(4, 4);
+        cache.put(5, 5);
+        cache.get(4);
         for (Map.Entry<Integer, Integer> entry : cache.cache.entrySet()) {
             System.err.println(entry.getKey() + ": " + entry.getValue());
         }
