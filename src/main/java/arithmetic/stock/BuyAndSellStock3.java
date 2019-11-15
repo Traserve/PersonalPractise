@@ -10,36 +10,54 @@ package arithmetic.stock;
 public class BuyAndSellStock3 {
 
     public static void main(String[] args) {
-//        int[] prices = {7,1,5,3,6,4};
-        int[] prices = {1, 2};
+        int[] prices = {3, 3, 5, 0, 0, 3, 1, 4};
         System.err.println(maxProfit(prices));
+        System.err.println(maxProfit2(prices));
+        System.err.println(maxProfit3(prices));
     }
 
     public static int maxProfit(int[] prices) {
-        int[][] profit = new int[prices.length][prices.length];
-        for(int i = 0; i < prices.length; i++){
-            for(int j=i; j< prices.length; j++){
-                profit[i][j] = prices[j] - prices[i];
+        int max_k = 2;
+        int[][][] dp = new int[prices.length][max_k + 1][2];
+        dp[0][0][0] = 0;
+        dp[0][0][1] = Integer.MIN_VALUE;
+        dp[0][1][0] = 0;
+        dp[0][1][1] = -prices[0];
+        dp[0][2][0] = 0;
+        dp[0][2][1] = -prices[0];
+
+        for (int i = 1; i < prices.length; i++) {
+            for (int k = max_k; k >= 1; k--) {
+                dp[i][k][0] = Math.max(dp[i - 1][k][0], dp[i - 1][k][1] + prices[i]);
+                dp[i][k][1] = Math.max(dp[i - 1][k][1], dp[i - 1][k - 1][0] - prices[i]);
             }
         }
-        int maxProfit = 0;
-        for(int i = 0; i < prices.length; i++){
-            for(int j=i; j< prices.length; j++){
-                if(profit[i][j] > 0){
-                    maxProfit = maxProfit < profit[i][j] ? profit[i][j] : maxProfit;
-                    for(int m = j; m < prices.length; m++){
-                        for(int n=m; n< prices.length; n++){
-                            if(profit[m][n] > 0){
-                                int k = profit[i][j] + profit[m][n];
-                                if(maxProfit < k){
-                                    maxProfit = k;
-                                }
-                            }
-                        }
-                    }
-                }
+        return dp[prices.length - 1][max_k][0];
+    }
+
+    public static int maxProfit2(int[] prices) {
+        int hold1 = Integer.MAX_VALUE, hold2 = Integer.MAX_VALUE;
+        int sell1 = 0, sell2 = 0;
+        for (int i = 0; i < prices.length; i++) {
+            hold1 = Math.min(hold1, prices[i]);
+            sell1 = Math.max(prices[i] - hold1, sell1);
+
+            hold2 = Math.min(hold2, prices[i] - sell1);
+            sell2 = Math.max(sell2, prices[i] - hold2);
+        }
+        return sell2;
+    }
+
+    public static int maxProfit3(int[] prices) {
+        int k = 2;
+        int[][] t = new int[k + 1][prices.length];
+        for (int i = 1; i <= k; i++) {
+            int tmpMax = -prices[0];
+            for (int j = 1; j < prices.length; j++) {
+                t[i][j] = Math.max(t[i][j - 1], prices[j] + tmpMax);
+                tmpMax = Math.max(tmpMax, t[i - 1][j - 1] - prices[j]);
             }
         }
-        return maxProfit;
+        return t[k][prices.length - 1];
     }
 }

@@ -1,21 +1,44 @@
 package arithmetic;
 
-import static java.lang.Math.min;
-
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * @ClassName PalindromicSubstring
+ * @ClassName LongestPalindromicSubstring
  * @Description 回文串问题
  * @Author Cao.Zhuang
  * @Date 2019/10/14 17:13
  */
 
-public class PalindromicSubstring {
+public class LongestPalindromicSubstring {
 
     public static void main(String[] args) {
         System.err.println(longestPalindrome("abccba"));
+        System.err.println(longestPalindromeDp("abccba"));
         System.err.println(manacher("abccba"));
+    }
+
+    public static String longestPalindrome(String s) {
+        String res = "";
+        for (int i = 0; i < s.length(); i++) {
+            // 以 s[i] 为中心的最长回文子串
+            String s1 = palindrome(s, i, i);
+            // 以 s[i] 和 s[i+1] 为中心的最长回文子串
+            String s2 = palindrome(s, i, i + 1);
+            // res = longest(res, s1, s2)
+            res = res.length() > s1.length() ? res : s1;
+            res = res.length() > s2.length() ? res : s2;
+        }
+        return res;
+    }
+
+    public static String palindrome(String s, int l, int r) {
+        // 防止索引越界
+        while (l >= 0 && r < s.length() && s.charAt(l) == s.charAt(r)) {
+            // 向两边展开
+            l--; r++;
+        }
+        // 返回以 s[l] 和 s[r] 为中心的最长回文串
+        return s.substring(l + 1, r);
     }
 
     /**
@@ -23,7 +46,7 @@ public class PalindromicSubstring {
      * @param s
      * @return
      */
-    private static String longestPalindrome(String s) {
+    private static String longestPalindromeDp(String s) {
         int n = s.length();
         boolean[][] dp = new boolean[n][n];
         //保存最长回文子串长度
@@ -46,7 +69,7 @@ public class PalindromicSubstring {
             }
 //            System.err.print("\n");
         }
-        System.err.println("start: " + start + "  maxlen: " + maxlen);
+//        System.err.println("start: " + start + "  maxlen: " + maxlen);
         return (StringUtils.substring(s, start, start + maxlen));
     }
 
