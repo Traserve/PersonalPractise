@@ -23,74 +23,64 @@ public class RegularExpressionMatching {
         System.err.println(isMatch("aaa","ab*ac*a"));//true
     }
 
+    /**
+     * 思路：
+     * 1, If p.charAt(j) == s.charAt(i) :  dp[i][j] = dp[i-1][j-1];
+     * 2, If p.charAt(j) == '.' : dp[i][j] = dp[i-1][j-1];
+     * 3, If p.charAt(j) == '*':
+     *    here are two sub conditions:
+     *                1   if p.charAt(j-1) != s.charAt(i) : dp[i][j] = dp[i][j-2]  //in this case, a* only counts as empty
+     *                2   if p.charAt(i-1) == s.charAt(i) or p.charAt(i-1) == '.':
+     *                               dp[i][j] = dp[i-1][j]    //in this case, a* counts as multiple a
+     *                            or dp[i][j] = dp[i][j-1]   // in this case, a* counts as single a
+     *                            or dp[i][j] = dp[i][j-2]   // in this case, a* counts as empty
+     * @return
+     */
     public static boolean isMatch(String s, String p) {
-        int j = 0;
-        for (int i = 0; i < s.length(); i++) {
-//            System.err.print(i + " " + j + "\n");
-//            char a = s.charAt(i);
-//            char b = p.charAt(j);
-//            char c;
-//            char d;
-//            System.err.print("a:[" + a + "] b:[" + b + "] ");
-//            if (j - 1 >= 0) {
-//                c = p.charAt(j - 1);
-//                System.err.print("c:[" + c + "] ");
-//            }
-//            if (j + 1 < p.length()) {
-//                d = p.charAt(j + 1);
-//                System.err.print("d:[" + d + "] ");
-//            }
-//            System.err.print("\n");
-            if (j >= p.length()) {
-                return false;
-            }
-            if (s.charAt(i) == p.charAt(j) || p.charAt(j) == '.') {
-                j++;
-                continue;
-            }
-            if (p.charAt(j) == '*') {
-                if (j == 0) {
-                    return false;
-                } else {
-                    if (p.charAt(j - 1) == s.charAt(i) || p.charAt(j - 1) == '.') {
-                        continue;
-                    }
-                }
-                if (j + 1 < p.length()) {
-                    if (p.charAt(j + 1) == s.charAt(i) || p.charAt(j + 1) == '.') {
-                        j += 2;
-                        continue;
-                    }
-                }
-                return false;
-            }
-            if(j == 0){
-                while (j + 1 < p.length() && p.charAt(j + 1) != s.charAt(i)) {
-                    j++;
-                }
-                if (j == p.length()) {
-                    return false;
-                } else {
-                    j++;
-                    continue;
-                }
-            }
+        if (s == null || p == null) {
             return false;
         }
-        if (j < p.length()) {
-            if (p.charAt(j) == '*') {
-                if (s.length() - (p.length() - j) < 0) {
-                    return false;
-                }
-                System.err.println(s.substring(s.length() - (p.length() - j) + 1));
-                System.err.println(p.substring(j + 1));
-                if (!s.substring(s.length() - (p.length() - j) + 1).endsWith(p.substring(j + 1))) {
-                    return false;
-                }
-            } else {
-                return false;
+        boolean[][] dp = new boolean[s.length()+1][p.length()+1];
+        dp[0][0] = true;
+        for (int i = 0; i < p.length(); i++) {
+            if (p.charAt(i) == '*' && dp[0][i-1]) {
+                dp[0][i+1] = true;
             }
         }
-        return true;
+        for (int i = 0 ; i < s.length(); i++) {
+            for (int j = 0; j < p.length(); j++) {
+                if (p.charAt(j) == '.') {
+                    dp[i+1][j+1] = dp[i][j];
+                }
+                if (p.charAt(j) == s.charAt(i)) {
+                    dp[i+1][j+1] = dp[i][j];
+                }
+                if (p.charAt(j) == '*') {
+                    if (p.charAt(j-1) != s.charAt(i) && p.charAt(j-1) != '.') {
+                        dp[i+1][j+1] = dp[i+1][j-1];
+                    } else {
+                        dp[i+1][j+1] = (dp[i+1][j] || dp[i][j+1] || dp[i+1][j-1]);
+                    }
+                }
+            }
+        }
+        System.err.print("    ");
+        for (int i = 0; i < p.length(); i++) {
+            System.err.print(p.charAt(i) + " ");
+        }
+        System.err.print("\n");
+        for (int i = 0; i < dp.length; i++) {
+            if(i==0){
+                System.err.print("  ");
+            }else {
+                System.err.print(s.charAt(i-1) + " ");
+            }
+            for (int j = 0; j < dp[0].length; j++) {
+                System.err.print(dp[i][j] ? "T" : "F");
+                System.err.print(" ");
+            }
+            System.err.print("\n");
+        }
+        return dp[s.length()][p.length()];
     }
 }
