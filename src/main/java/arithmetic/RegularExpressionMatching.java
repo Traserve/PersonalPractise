@@ -3,6 +3,20 @@ package arithmetic;
 /**
  * Description: https://leetcode.com/problems/regular-expression-matching/
  *
+ * Given an input string (s) and a pattern (p), implement regular expression matching with support for '.' and '*'.
+ * '.' Matches any single character.
+ * '*' Matches zero or more of the preceding element.
+ * The matching should cover the entire input string (not partial).
+ *
+ * Note:
+ * s could be empty and contains only lowercase letters a-z.
+ * p could be empty and contains only lowercase letters a-z, and characters like . or *.
+ *
+ * Example:
+ * Input: s = "aab"; p = "c*a*b"
+ * Output: true
+ * Explanation: c can be repeated 0 times, a can be repeated 1 time. Therefore, it matches "aab".
+ *
  * @author Cao.Zhuang
  * @date 2019/11/15 16:37
  */
@@ -11,7 +25,7 @@ public class RegularExpressionMatching {
 
     public static void main(String[] args) {
 //        System.err.println(isMatch("mississippi", "mis*is*ip*.")); // true
-//        System.err.println(isMatch("aab", "c*a*b")); // true
+        System.err.println(isMatch("aab", "c*a*b")); // true
 //        System.err.println(isMatch("abcd","d*")); //false
 //        System.err.println(isMatch("aa", "a*a"));//true
 //        System.err.println(isMatch("aa", "a*b"));//false
@@ -20,7 +34,7 @@ public class RegularExpressionMatching {
 //        System.err.println(isMatch("aa", "aaa"));//false
 //        System.err.println(isMatch("aaa","ab*a"));//false
 //        System.err.println(isMatch("abc",".*"));//true
-        System.err.println(isMatch("aaa","ab*ac*a"));//true
+//        System.err.println(isMatch("aaa","ab*ac*a"));//true
     }
 
     /**
@@ -34,32 +48,34 @@ public class RegularExpressionMatching {
      *                               dp[i][j] = dp[i-1][j]    //in this case, a* counts as multiple a
      *                            or dp[i][j] = dp[i][j-1]   // in this case, a* counts as single a
      *                            or dp[i][j] = dp[i][j-2]   // in this case, a* counts as empty
-     * @return
+     *
+     * @return dp[s.length()][p.length()]
      */
     public static boolean isMatch(String s, String p) {
         if (s == null || p == null) {
             return false;
         }
-        boolean[][] dp = new boolean[s.length()+1][p.length()+1];
+        boolean[][] dp = new boolean[s.length() + 1][p.length() + 1];
         dp[0][0] = true;
         for (int i = 0; i < p.length(); i++) {
-            if (p.charAt(i) == '*' && dp[0][i-1]) {
-                dp[0][i+1] = true;
+            if (p.charAt(i) == '*' && dp[0][i - 1]) {
+                //此时*表示0个字符
+                dp[0][i + 1] = true;
             }
         }
-        for (int i = 0 ; i < s.length(); i++) {
+        for (int i = 0; i < s.length(); i++) {
             for (int j = 0; j < p.length(); j++) {
                 if (p.charAt(j) == '.') {
-                    dp[i+1][j+1] = dp[i][j];
+                    dp[i + 1][j + 1] = dp[i][j];
                 }
                 if (p.charAt(j) == s.charAt(i)) {
-                    dp[i+1][j+1] = dp[i][j];
+                    dp[i + 1][j + 1] = dp[i][j];
                 }
                 if (p.charAt(j) == '*') {
-                    if (p.charAt(j-1) != s.charAt(i) && p.charAt(j-1) != '.') {
-                        dp[i+1][j+1] = dp[i+1][j-1];
+                    if (p.charAt(j - 1) != s.charAt(i) && p.charAt(j - 1) != '.') {
+                        dp[i + 1][j + 1] = dp[i + 1][j - 1];
                     } else {
-                        dp[i+1][j+1] = (dp[i+1][j] || dp[i][j+1] || dp[i+1][j-1]);
+                        dp[i + 1][j + 1] = (dp[i + 1][j] || dp[i + 1][j - 1] || dp[i][j + 1]);
                     }
                 }
             }
@@ -70,10 +86,10 @@ public class RegularExpressionMatching {
         }
         System.err.print("\n");
         for (int i = 0; i < dp.length; i++) {
-            if(i==0){
+            if (i == 0) {
                 System.err.print("  ");
-            }else {
-                System.err.print(s.charAt(i-1) + " ");
+            } else {
+                System.err.print(s.charAt(i - 1) + " ");
             }
             for (int j = 0; j < dp[0].length; j++) {
                 System.err.print(dp[i][j] ? "T" : "F");
