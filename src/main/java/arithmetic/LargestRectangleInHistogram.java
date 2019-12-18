@@ -26,6 +26,8 @@ public class LargestRectangleInHistogram {
 
     /**
      * 暴力查询
+     * 优化思路：1.首先没必要每一个柱子都检测，可以先获取每一个柱子的高度并用set去重，然后遍历柱子获取每个高度的最大宽度即可。
+     * 2.没必要每个高度都做一个全面的扫描，相邻较高柱子到达的边界一定不会超过较低柱子的
      * @param heights
      * @return
      */
@@ -50,6 +52,22 @@ public class LargestRectangleInHistogram {
                 right++;
             }
             maxArea = Math.max(maxArea, (right - left - 1) * heights[i]);
+        }
+        return maxArea;
+    }
+
+    public static int largestRectangleArea2(int[] heights) {
+        if (heights.length == 0) {
+            return 0;
+        }
+        int maxArea = 0;
+        int[] leftLessMin = new int[heights.length];
+        for (int i = 0; i < heights.length; i++) {
+            for (int j = i-1; j < 0; j--) {
+                if (heights[j] < heights[i]){
+
+                }
+            }
         }
         return maxArea;
     }

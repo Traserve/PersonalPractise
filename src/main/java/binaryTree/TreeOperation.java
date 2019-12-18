@@ -13,7 +13,8 @@ import java.util.Queue;
 
 public class TreeOperation {
 
-    private static int[] array = {8, 3, 15, 1, 4, 9, 20};
+//    private static int[] array = {8, 3, 15, 1, 4, 9, 20};
+    private static int[] array = {10, 6, 14, 4, 7, 12, 16, 3, 5, 8, 9, 11, 13, 15, 17};
     private static List<TreeNode> nodeList = null;
 
     public static void main(String[] args) {
@@ -26,18 +27,22 @@ public class TreeOperation {
         TreeNode c = new TreeNode(19);
         b.right = c;
         System.out.println("先序遍历：");
-        preOrderTraverse(root);
+        preOrderTraversal(root);
+        System.out.println();
+        preOrderTraversalNoRecursion(root);
+        System.out.println();
+        preOrderTraversalNoRecursion2(root);
         System.out.println();
 
         System.out.println("中序遍历：");
-        inOrderTraverse(root);
+        inOrderTraversal(root);
         System.out.println();
 
         System.out.println("后序遍历：");
-        postOrderTraverse(root);
+        postOrderTraversal(root);
         System.out.println();
 
-        TreeNode node = deleteNode(root, 15);
+//        TreeNode node = deleteNode(root, 15);
     }
 
     public static TreeNode deleteNode(TreeNode root, int key) {
@@ -174,43 +179,43 @@ public class TreeOperation {
     /**
      * 先序遍历
      */
-    public static void preOrderTraverse(TreeNode node) {
+    public static void preOrderTraversal(TreeNode node) {
         if (node == null) {
             return;
         }
         System.out.print(node.data + " ");
-        preOrderTraverse(node.left);
-        preOrderTraverse(node.right);
+        preOrderTraversal(node.left);
+        preOrderTraversal(node.right);
     }
 
     /**
      * 中序遍历
      */
-    public static void inOrderTraverse(TreeNode node) {
+    public static void inOrderTraversal(TreeNode node) {
         if (node == null) {
             return;
         }
-        inOrderTraverse(node.left);
+        inOrderTraversal(node.left);
         System.out.print(node.data + " ");
-        inOrderTraverse(node.right);
+        inOrderTraversal(node.right);
     }
 
     /**
      * 后序遍历
      */
-    public static void postOrderTraverse(TreeNode node) {
+    public static void postOrderTraversal(TreeNode node) {
         if (node == null) {
             return;
         }
-        postOrderTraverse(node.left);
-        postOrderTraverse(node.right);
+        postOrderTraversal(node.left);
+        postOrderTraversal(node.right);
         System.out.print(node.data + " ");
     }
 
     /**
      * 先序遍历二叉树（非递归）
      */
-    public static void preOrderTraverseNoRecursion(TreeNode root) {
+    public static void preOrderTraversalNoRecursion(TreeNode root) {
         LinkedList<TreeNode> stack = new LinkedList<TreeNode>();
         TreeNode currentNode = null;
         stack.push(root);
@@ -226,10 +231,29 @@ public class TreeOperation {
         }
     }
 
+    public static void preOrderTraversalNoRecursion2(TreeNode root) {
+        LinkedList<TreeNode> stack = new LinkedList<TreeNode>();
+        TreeNode currentNode = root;
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            while (currentNode != null) {
+                //根左右
+                System.out.print(currentNode.data + " ");
+                stack.push(currentNode);
+                currentNode = currentNode.left;
+            }
+            if (!stack.isEmpty()) {
+                currentNode = stack.peek();//得到根节点
+                stack.pop();//根节点出栈
+                currentNode = currentNode.right;//
+            }
+        }
+    }
+
     /**
      * 中序遍历二叉树（非递归）
      */
-    public static void inOrderTraverseNoRecursion(TreeNode root) {
+    public static void inOrderTraversalNoRecursion(TreeNode root) {
         LinkedList<TreeNode> stack = new LinkedList<TreeNode>();
         TreeNode currentNode = root;
         while (currentNode != null || !stack.isEmpty()) {
@@ -247,7 +271,7 @@ public class TreeOperation {
     /**
      * 后序遍历二叉树（非递归）
      */
-    public static void postOrderTraverseNoRecursion(TreeNode root) {
+    public static void postOrderTraversalNoRecursion(TreeNode root) {
         LinkedList<TreeNode> stack = new LinkedList<TreeNode>();
         TreeNode currentNode = root;
         TreeNode rightNode = null;
@@ -276,7 +300,7 @@ public class TreeOperation {
     /**
      * 广度优先遍历二叉树，又称层次遍历二叉树
      */
-    public static void breadthFirstTraverse(TreeNode root) {
+    public static void breadthFirstTraversal(TreeNode root) {
         Queue<TreeNode> queue = new LinkedList<TreeNode>();
         TreeNode currentNode = null;
         queue.offer(root);

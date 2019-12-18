@@ -1,8 +1,8 @@
 package optional;
 
-import com.test.User;
 import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
+import test.User;
 
 /**
  * @ClassName OptionalTest

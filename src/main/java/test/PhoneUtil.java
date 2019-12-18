@@ -1,4 +1,4 @@
-package com.test;
+package test;
 
 import com.alibaba.fastjson.JSONObject;
 import http.HttpClientResult;

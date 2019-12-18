@@ -1,4 +1,4 @@
-package com.test;
+package test;
 
 import com.google.common.collect.Lists;
 import java.util.ArrayList;
