@@ -54,6 +54,8 @@ public class Other {
         int b = 1 ^ 2 ^ 3 ^ 4 ^ 6 ^ 7 ^ 8 ^ 9 ^ 10;
         System.err.println(b);
         System.err.println(a ^ b);
+        Integer s = null;
+        System.err.println(a + s);
     }
 
     private static boolean isNum(String val) {
