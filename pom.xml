@@ -75,6 +75,12 @@
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-slf4j-impl</artifactId>
             <version>${log4j.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>slf4j-api</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency> <!-- 桥接：告诉commons logging使用Log4j2 -->
             <groupId>org.apache.logging.log4j</groupId>
@@ -136,6 +142,16 @@
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
             <version>4.5.7</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>commons-codec</artifactId>
+                    <groupId>commons-codec</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>commons-logging</artifactId>
+                    <groupId>commons-logging</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -171,6 +187,17 @@
             <artifactId>json</artifactId>
             <version>20160212</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>1.8.13</version>
+        </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>1.8.13</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -186,6 +213,5 @@
             </plugin>
         </plugins>
     </build>
-
 
 </project>
