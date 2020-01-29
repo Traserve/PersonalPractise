@@ -15,7 +15,7 @@ public class ListNode {
     ListNode() {
     }
 
-    ListNode(int data) {
+    public ListNode(int data) {
         this.data = data;
     }
 }
