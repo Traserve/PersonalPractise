@@ -2,6 +2,8 @@ package test;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.util.Arrays;
+
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -49,13 +51,26 @@ public class Other {
 //        System.err.println(Boolean.valueOf(String.valueOf(map.get("22"))));
 //        System.err.println(idCardNoMock("430421199011089157"));
 
-        int a = 1 ^ 2 ^ 3 ^ 4 ^ 5 ^ 6 ^ 7 ^ 8 ^ 9 ^ 10;
-        System.err.println(a);
-        int b = 1 ^ 2 ^ 3 ^ 4 ^ 6 ^ 7 ^ 8 ^ 9 ^ 10;
-        System.err.println(b);
-        System.err.println(a ^ b);
-        Integer s = null;
-        System.err.println(a + s);
+//        int a = 1 ^ 2 ^ 3 ^ 4 ^ 5 ^ 6 ^ 7 ^ 8 ^ 9 ^ 10;
+//        System.err.println(a);
+//        int b = 1 ^ 2 ^ 3 ^ 4 ^ 6 ^ 7 ^ 8 ^ 9 ^ 10;
+//        System.err.println(b);
+//        System.err.println(a ^ b);
+//        Integer s = null;
+//        System.err.println(a + s);
+
+        System.out.println(StringUtils.substring("dskabcee", 3));
+        System.out.println(StringUtils.substring("dskabcee", 3, 5));
+        System.out.println("-----------------------------------------");
+        System.out.println(StringUtils.substringBefore("dskeabcee", "e"));
+        System.out.println(StringUtils.substringBeforeLast("dskeabcee", "e"));
+        System.out.println("-----------------------------------------");
+        System.out.println(StringUtils.substringAfter("dskeabcedeh", "e"));
+        System.out.println(StringUtils.substringAfterLast("dskeabcedeh", "e"));
+        System.out.println("-----------------------------------------");
+        System.out.println(StringUtils.substringBetween("dskeabcedeh", "ds"));
+        System.out.println(StringUtils.substringBetween("dskeabcedeh", "ds","e"));
+        System.out.println(Arrays.toString(StringUtils.substringsBetween("dskeabcedeh", "ds", "e")));
     }
 
     private static boolean isNum(String val) {
