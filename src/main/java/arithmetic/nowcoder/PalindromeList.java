@@ -49,7 +49,13 @@ public class PalindromeList {
             arrayDeque.pop();
         }
 
-
-        return false;
+        while(slow != null){
+            //如果两者不相同，则该链表不是回文串
+            if (arrayDeque.pop().data != slow.data) {
+                return false;
+            }
+            slow = slow.next;
+        }
+        return true;
     }
 }
