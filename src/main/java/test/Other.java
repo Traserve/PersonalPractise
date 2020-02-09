@@ -3,6 +3,7 @@ package test;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.Arrays;
+import java.util.HashSet;
 
 import org.apache.commons.lang3.StringUtils;
 
