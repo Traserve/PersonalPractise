@@ -17,7 +17,7 @@ public class ListOperation {
         ListNode head = creatListTail();
         traverseList(head);
 //        traverseList(insertList(head, 9, 3));
-//        traverseList(reverseListRecursion(head));
+        traverseList(reverseListRecursion(head));
 //        traverseList(reverseListRecursion(head, 3));
 //        traverseList(reverseListRecursion(head, 3, 5));
 //        traverseList(reserveListIteration(head));
