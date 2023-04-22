@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 public class ListOperation {
 
-    private static ListNode linkAfter = null;
+    private static ListNode successor = null;
 
     public static void main(String[] args) {
         ListNode head = creatListTail();
@@ -51,12 +51,12 @@ public class ListOperation {
      */
     public static ListNode reverseListRecursion(ListNode head, int n) {
         if (head.next == null || n == 1) {
-            linkAfter = head.next;
+            successor = head.next;
             return head;
         }
         ListNode last = reverseListRecursion(head.next, n - 1);
         head.next.next = head;
-        head.next = linkAfter;
+        head.next = successor;
         return last;
     }
 
@@ -197,7 +197,10 @@ public class ListOperation {
     }
 
     /**
-     * 如果链表相交，求链表相交的起始点： 1、首先判断链表是否相交，如果两个链表不相交，则求相交起点没有意义 2、求出两个链表长度之差：len=length1-length2 3、让较长的链表先走len步
+     * 如果链表相交，求链表相交的起始点：
+     * 1、首先判断链表是否相交，如果两个链表不相交，则求相交起点没有意义
+     * 2、求出两个链表长度之差：len=length1-length2
+     * 3、让较长的链表先走len步
      * 4、然后两个链表同步向前移动，没移动一次就比较它们的结点是否相等，第一个相等的结点即为它们的第一个相交点
      */
     public ListNode findFirstCrossPoint(ListNode head1, ListNode head2) {
@@ -244,7 +247,7 @@ public class ListOperation {
         }
         ListNode curr = head;
         do {
-            System.out.print(curr.data + " ");
+            System.out.print(curr.val + " ");
             curr = curr.next;
         } while (curr != null);
         System.out.print("\n");
@@ -261,7 +264,7 @@ public class ListOperation {
         Scanner in = new Scanner(System.in);
         while ((newDate = in.nextInt()) != 0) {
             ListNode newNode = new ListNode();
-            newNode.data = newDate;
+            newNode.val = newDate;
             newNode.next = head;
             head = newNode;
         }
@@ -281,7 +284,7 @@ public class ListOperation {
         Scanner in = new Scanner(System.in);
         while ((newDate = in.nextInt()) != 0) {
             ListNode newNode = new ListNode();
-            newNode.data = newDate;
+            newNode.val = newDate;
             newNode.next = null;
             if (head == null) {
                 head = newNode;

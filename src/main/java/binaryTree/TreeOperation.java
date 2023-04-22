@@ -51,12 +51,12 @@ public class TreeOperation {
         boolean isLeftChild = true;
         //找到要删除的节点
         while (current != null) {
-            if (current.data > key) {
+            if (current.val > key) {
                 //当前值比查找值大，搜索左子树
                 parent = current;
                 isLeftChild = true;
                 current = current.left;
-            } else if (current.data < key) {
+            } else if (current.val < key) {
                 //当前值比查找值小，搜索右子树
                 parent = current;
                 isLeftChild = false;
@@ -144,12 +144,12 @@ public class TreeOperation {
         TreeNode parentNode;
         while (current != null) {
             parentNode = current;
-            if (current.data > data) {
+            if (current.val > data) {
                 current = current.left;
                 if (current == null) {
                     parentNode.left = newNode;
                 }
-            } else if (current.data < data) {
+            } else if (current.val < data) {
                 current = current.right;
                 if (current == null) {
                     parentNode.right = newNode;
@@ -162,10 +162,10 @@ public class TreeOperation {
     public static TreeNode findNode(TreeNode root, int key) {
         TreeNode current = root;
         while (current != null) {
-            if (current.data > key) {
+            if (current.val > key) {
                 //当前值比查找值大，搜索左子树
                 current = current.left;
-            } else if (current.data < key) {
+            } else if (current.val < key) {
                 //当前值比查找值小，搜索右子树
                 current = current.right;
             } else {
@@ -183,7 +183,7 @@ public class TreeOperation {
         if (node == null) {
             return;
         }
-        System.out.print(node.data + " ");
+        System.out.print(node.val + " ");
         preOrderTraversal(node.left);
         preOrderTraversal(node.right);
     }
@@ -196,7 +196,7 @@ public class TreeOperation {
             return;
         }
         inOrderTraversal(node.left);
-        System.out.print(node.data + " ");
+        System.out.print(node.val + " ");
         inOrderTraversal(node.right);
     }
 
@@ -209,7 +209,7 @@ public class TreeOperation {
         }
         postOrderTraversal(node.left);
         postOrderTraversal(node.right);
-        System.out.print(node.data + " ");
+        System.out.print(node.val + " ");
     }
 
     /**
@@ -221,7 +221,7 @@ public class TreeOperation {
         stack.push(root);
         while (!stack.isEmpty()) {
             currentNode = stack.pop();
-            System.out.print(currentNode.data + " ");
+            System.out.print(currentNode.val + " ");
             if (currentNode.right != null) {
                 stack.push(currentNode.right);
             }
@@ -238,7 +238,7 @@ public class TreeOperation {
         while (!stack.isEmpty()) {
             while (currentNode != null) {
                 //根左右
-                System.out.print(currentNode.data + " ");
+                System.out.print(currentNode.val + " ");
                 stack.push(currentNode);
                 currentNode = currentNode.left;
             }
@@ -263,7 +263,7 @@ public class TreeOperation {
                 currentNode = currentNode.left;
             }
             currentNode = stack.pop();
-            System.out.print(currentNode.data + " ");
+            System.out.print(currentNode.val + " ");
             currentNode = currentNode.right;
         }
     }
@@ -284,7 +284,7 @@ public class TreeOperation {
             currentNode = stack.pop();
             // 当前结点没有右结点或上一个结点（已经输出的结点）是当前结点的右结点，则输出当前结点
             while (currentNode.right == null || currentNode.right == rightNode) {
-                System.out.print(currentNode.data + " ");
+                System.out.print(currentNode.val + " ");
                 rightNode = currentNode;
                 if (stack.isEmpty()) {
                     return; //root以输出，则遍历结束
@@ -306,7 +306,7 @@ public class TreeOperation {
         queue.offer(root);
         while (!queue.isEmpty()) {
             currentNode = queue.poll();
-            System.out.print(currentNode.data + " ");
+            System.out.print(currentNode.val + " ");
             if (currentNode.left != null) {
                 queue.offer(currentNode.left);
             }

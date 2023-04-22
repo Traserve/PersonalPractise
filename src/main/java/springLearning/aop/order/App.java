@@ -15,7 +15,7 @@ public class App {
 
     public static void main(String[] args) {
         // 用我们的配置文件来启动一个 ApplicationContext
-//        ApplicationContext context = new ClassPathXmlApplicationContext("classpath:application.xml");
+//        ApplicationContext context = new ClassPathXmlApplicationContext("classpath:application2.xml");
 //        UserService userService = (UserService) context.getBean("userServiceProxy");
 
         ApplicationContext context = new ClassPathXmlApplicationContext("classpath:spring_aspectj.xml");

@@ -3,7 +3,6 @@ package arithmetic.nowcoder;
 import list.ListNode;
 
 import java.util.ArrayDeque;
-import java.util.Stack;
 
 /**
  * @Author: Martin
@@ -51,7 +50,7 @@ public class PalindromeList {
 
         while(slow != null){
             //如果两者不相同，则该链表不是回文串
-            if (arrayDeque.pop().data != slow.data) {
+            if (arrayDeque.pop().val != slow.val) {
                 return false;
             }
             slow = slow.next;
